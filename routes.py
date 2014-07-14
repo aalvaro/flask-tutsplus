@@ -33,8 +33,18 @@ def contact():
             flash('All fields are required.')
             return render_template('contact.html', form=form)
         else:
-            return 'Form posted.'
-            
+            msg = Message(form.subject.data,
+                          sender=(form.name.data, form.email.data),
+                          recipients=['alvarosanchez@riverdots.com',
+                                      'pruebas@riverdots.com',
+                                      form.email.data])
+
+            msg.body = form.message.data
+
+            mail.send(msg)
+
+            return "Form posted."
+
     elif request.method == 'GET':
         return render_template('contact.html', form=form)
 
