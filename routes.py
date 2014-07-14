@@ -1,9 +1,20 @@
 from flask import Flask, render_template, request, flash
 from forms import ContactForm
+from flask.ext.mail import Message, Mail
+
+mail = Mail()
 
 app = Flask(__name__)
 
 app.secret_key = 'development key'  # Puede ser cualquier cosa (un string)
+
+app.config["MAIL_SERVER"] = "mail.riverdots.com"
+app.config["MAIL_PORT"] = 25
+app.config["MAIL_USE_SSL"] = False
+app.config["MAIL_USERNAME"] = "pruebas@riverdots.com"
+app.config["MAIL_PASSWORD"] = "123456"
+
+mail.init_app(app)
 
 @app.route('/')
 def home():
